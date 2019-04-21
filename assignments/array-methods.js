@@ -85,10 +85,69 @@ ticketPriceTotal = athleteDonations.reduce((pot, currentVal) => pot + currentVal
 console.log(`The total of athlete donations is $${ticketPriceTotal}`);
 
 // ==== Challenge 5: Be Creative ====
-// Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array methods listed above.
+// Now that you have used .forEach(), .map(), .filter(), and .reduce().  I want you to think of potential problems you could solve
+// given the data set and the 5k fun run theme.  Try to create and then solve 3 unique problems using one or many of the array
+// methods listed above.
 
 // Problem 1
+//How many of each shirt size are needed for ordering purposes.
+function shirtSizes() {
+    let extraSmall = runners.filter(athlete => athlete.shirt_size === "XS");
+    let small = runners.filter(athlete => athlete.shirt_size === "S");
+    let medium = runners.filter(athlete => athlete.shirt_size === "M");
+    let large = runners.filter(athlete => athlete.shirt_size === "L");
+    let extraLarge = runners.filter(athlete => athlete.shirt_size === "XL");
+    let doubleExtraLarge = runners.filter(athlete => athlete.shirt_size === "2XL");
+    let tripleExtraLarge = runners.filter(athlete => athlete.shirt_size === "3XL");
+
+    let totalShirts = `The total number of shirts per size for the runners are:
+    ${extraSmall.length} extra-small,
+    ${small.length} small,
+    ${medium.length} medium,
+    ${large.length} large,
+    ${extraLarge.length} extra-large,
+    ${doubleExtraLarge.length} 2XL,
+    ${tripleExtraLarge.length} 3XL.`;
+
+    console.log(totalShirts);
+};
+
+shirtSizes();
+
 
 // Problem 2
+//Send a gratitude of participation email letter to each runner.
+function newsLetter() {
+    let messages = [];
+
+    for (let i = 0; i < runners.length; i ++) {
+        let text = `Dear ${runners[i].first_name} ${runners[i].last_name}, We appreciate your participation in our 5K fun run. We will be emailing you information about upcoming events to the following email: ${runners[i].email}. Hope to see you soon.`;
+        messages.push(text);
+    }
+    console.log(messages);
+}
+newsLetter();
 
 // Problem 3
+//Record who gave within the range of $90 and below, $90 to $180, and anything above $180.
+// In order to recognize donations contributed by bracket.
+
+function donationBrackets() {
+    let eighty = runners.filter(athlete => athlete.donation <= 90);
+    let oneEighty = runners.filter(athlete => athlete.donation > 90 && athlete.donation <= 180);
+    let twoSeventy = runners.filter(athlete => athlete.donation > 180);
+
+    let firstBracket = eighty.map(athlete => `${athlete.first_name} ${athlete.last_name}`);
+    let secondBracket = oneEighty.map(athlete => `${athlete.first_name} ${athlete.last_name}`);
+    let thirdBracket = twoSeventy.map(athlete => `${athlete.first_name} ${athlete.last_name}`);
+
+    console.log(`This is the list of the first bracket that donated $90 and below. It has ${eighty.length} donors:`);
+    console.log(firstBracket);
+    console.log();
+    console.log(`This is the list of the second bracket that donated between $90 and $180. It has ${oneEighty.length} donors:`);
+    console.log(secondBracket);
+    console.log();
+    console.log(`This is the list of the third bracket that donated above $180. It has ${twoSeventy.length} donors:`);
+    console.log(thirdBracket);
+}
+donationBrackets();
